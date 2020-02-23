@@ -1,0 +1,26 @@
+<p [style.background]="color" (click)="changeColor('blue')">Hello, {{user? user.name : 'anonimous'}}!</p>
+<input type="text" #colorElement>
+<p>{{colorElement.value}}</p>
+<button (click)="changeColor(colorElement.value)">Change color!</button>
+<button (click)="showUserCard()">Show User</button>
+
+<ul [style]="'list-style-type: none;'">
+  <input type="text" #userNameElement>
+  <button
+  (click)="addUser(userNameElement.value);
+  userNameElement.value = ''"
+  >Add user
+</button>
+{{users | async}}
+  <li *ngFor="let user of users | async">
+    <app-user-card
+    *ngIf="toggleUserCard"
+    [user]="user"
+    (userSelected)="selectedUser = user"
+    >
+    {{user.name}}
+    </app-user-card>
+    <span (click)="removeUser(user.name)">X</span>
+  </li>
+</ul>
+<!-- <h1>{{selectedUser?.name}}</h1> -->
